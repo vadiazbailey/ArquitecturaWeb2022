@@ -1,7 +1,6 @@
 package DAO;
 import Model.InvoiceProductModel;
 import DAOFactory.ConexionMySQL;
-import modelo.Factura;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,7 +13,9 @@ import org.apache.commons.csv.CSVRecord;
  * @version 1.0
  */
 public class InvoiceProductDAO implements DAO <InvoiceProductModel>{
-     /**
+     private Connection connection;
+
+    /**
      * Create
      * The create method is used to create a new record in the database.
      * @param csvParser The CSVParser object that contains the data to be inserted.
@@ -44,13 +45,13 @@ public class InvoiceProductDAO implements DAO <InvoiceProductModel>{
      * @throws SQLException
      */
     @Override
-    public void crearTabla() throws SQLException {
+    public void createTable() throws SQLException {
         connection = ConexionMySQL.conectar();
 		String invoiceProduct = "CREATE TABLE invoice_product(" +
                                 "invoiceId INT," +
                                 "productId INT," +
                                 "quantity INT," +
-                                "PRIMARY KEY (invoiceId, productId)"+
+                                "PRIMARY KEY (invoiceId, productId), "+
                                 "FOREIGN KEY(invoiceId)" +
                                 "references invoice(invoiceId)," +
                                 "FOREIGN KEY(productId)" +

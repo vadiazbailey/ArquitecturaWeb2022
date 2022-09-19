@@ -9,7 +9,7 @@ import org.apache.commons.csv.CSVParser;
  * @author vadiazbailey {@Link https://github.com/vadiazbailey}
  * @version 1.0
  */ 
-public interface DAO {
+public interface DAO<T>{
     /**
      * Create
      * The create method is used to create a new record in the database.
@@ -22,5 +22,5 @@ public interface DAO {
      * The create table method is used to create a table in the database.
      * @throws SQLException
      */
-	public void crearTabla() throws SQLException;
+	public void createTable() throws SQLException;
 }
