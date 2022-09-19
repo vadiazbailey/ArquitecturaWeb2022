@@ -10,7 +10,10 @@ import DAO.InvoiceDAO;
 import DAO.InvoiceProductDAO;
 import DAO.ProductDAO;
 
-
+/**
+ * ConexionMySQL
+ * The ConexionMySQL class is used to connect to the database.
+ */
 public class ConexionMySQL extends AbstractFactory{
 
 	private static Connection conn;
@@ -22,6 +25,11 @@ public class ConexionMySQL extends AbstractFactory{
 	// FILMINAS 3 PAGINA 7 
 	// Este seria el ConcreteCreator
 	
+	/**
+	 * Conectar
+	 * The conectar method is used to connect to the database.
+	 * @return Connection
+	 */
 	public static Connection conectar() {
 		try {
 			Class.forName(DRIVER).getDeclaredConstructor().newInstance();
