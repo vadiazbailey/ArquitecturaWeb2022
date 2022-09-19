@@ -53,6 +53,7 @@ public class ClientDAO implements DAO <ClientModel> {
     @Override
     public void createTable() throws SQLException {
         connection = ConexionMySQL.conectar();
+      
 		String client = "CREATE TABLE client( "+
                         "clientId INT, "+
                         "clientName VARCHAR(500), "+
@@ -66,12 +67,12 @@ public class ClientDAO implements DAO <ClientModel> {
     public ArrayList<ClientModel> getListClientThatInvoiceTheMost() throws SQLException{
         connection = ConexionMySQL.conectar();
 
-        ArrayList<ClientModel> clients = new ArrayList<>();
+        ArrayList<ClientModel> clients = new ArrayList<ClientModel>();
 
         String query = "SELECT c.*, SUM(p.value * ip.quantity) as Facturado "+
                        "FROM client c JOIN invoice i ON (c.clientId = i.clientId) "+
                        "JOIN invoice_product ip ON(i.invoiceId = ip.invoiceId) "+
-                       "JOIN entregables_arqui_web.product p ON (p.productId = ip.productId) "+
+                       "JOIN product p ON (p.productId = ip.productId) "+
                        "WHERE c.clientId = i.clientId "+ 
                        "GROUP BY c.clientId "+  
                        "ORDER BY Facturado DESC ";

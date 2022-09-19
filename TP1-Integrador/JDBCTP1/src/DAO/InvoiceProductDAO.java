@@ -47,6 +47,7 @@ public class InvoiceProductDAO implements DAO <InvoiceProductModel>{
     @Override
     public void createTable() throws SQLException {
         connection = ConexionMySQL.conectar();
+ 
 		String invoiceProduct = "CREATE TABLE invoice_product(" +
                                 "invoiceId INT," +
                                 "productId INT," +

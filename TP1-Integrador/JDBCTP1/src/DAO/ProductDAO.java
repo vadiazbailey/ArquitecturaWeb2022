@@ -48,6 +48,7 @@ public class ProductDAO implements DAO <ProductModel>{
     @Override
     public void createTable() throws SQLException {
         connection = ConexionMySQL.conectar();
+
 		String product = "CREATE TABLE product(" +
                                 "productId INT," +
                                 "name VARCHAR(45)," +
@@ -70,9 +71,9 @@ public class ProductDAO implements DAO <ProductModel>{
         //I create a variable to save the product that I collect the most
         ProductModel highestGrossingProduct = null;
 
-        String product = "select p.name, sum(p.value * ip.quantity) as recaudo "+
-                         "from entregables_arqui_web.product p "+
-                         "inner join entregables_arqui_web.invoice_product ip "+
+        String product = "select p.productId, p.name, sum(p.value * ip.quantity) as recaudo "+
+                         "from product p "+
+                         "inner join invoice_product ip "+
                          "group by p.productId "+
                          "order by recaudo desc "+
                          "limit 1 ";
@@ -81,10 +82,10 @@ public class ProductDAO implements DAO <ProductModel>{
         ResultSet result = query.executeQuery();
 
         while(result.next()) {
-			highestGrossingProduct = new ProductModel(result.getInt(1), 
+			      highestGrossingProduct = new ProductModel(result.getInt(1), 
                                                       result.getString(2), 
                                                       result.getFloat(3));
-		}
+		    }
 		
 		query.close();
 		result.close();

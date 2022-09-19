@@ -1,5 +1,7 @@
 package Model;
 
+import DAO.ClientDAO;
+
 /**
  * ClientModel
  * The client model is used to store the client information

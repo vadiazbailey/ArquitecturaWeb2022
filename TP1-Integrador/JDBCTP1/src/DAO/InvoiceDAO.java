@@ -25,6 +25,7 @@ public class InvoiceDAO implements DAO <InvoiceModel>{
     @Override
     public void cargar(CSVParser datos) throws SQLException {
         connection = ConexionMySQL.conectar();
+  
 		String insert = "INSERT INTO invoice "+
                         "(invoiceId, clientId) "+ 
                         "VALUES (?, ?)"; 
