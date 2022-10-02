@@ -4,6 +4,7 @@
   <li>Diaz Bailey, Viviana Ayelen</li>
   <li>Lopardo, Martin Ignacio</li>
   <li>Peña, Beltran</li>
+  <li>Fernandez, Ezequiel</li>
 </ul>
 
 ### TP1-Entregable

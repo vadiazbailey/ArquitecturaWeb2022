@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
-import com.mysql.cj.xdevapi.Result;
-
 /**
  * ClientDAO
  * The client DAO is used to manage the clients in the database.
@@ -64,6 +62,11 @@ public class ClientDAO implements DAO <ClientModel> {
 		connection.close();
     }
 
+    /**
+     * Get List of Clients that Invoice the most
+     * The getListClientThatInvoiceTheMost method is used to get a list of clients that invoice the most.
+     * @throws SQLException
+     */
     public ArrayList<ClientModel> getListClientThatInvoiceTheMost() throws SQLException{
         connection = ConexionMySQL.conectar();
 

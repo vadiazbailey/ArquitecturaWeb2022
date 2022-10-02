@@ -13,6 +13,11 @@ import DAO.ProductDAO;
 import DAOFactory.AbstractFactory;
 import DAOFactory.ConexionMySQL;
 
+
+/**
+ * main
+ * The main class is used to create the tables and to parse the CSV files.
+ */
 public class main {
     private static ClientDAO daoClient;
     private static InvoiceDAO daoInvoice;
