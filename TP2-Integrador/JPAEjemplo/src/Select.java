@@ -9,26 +9,23 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import modelos.Persona;
-import modelos.Turno;
+import modelos.Estudiante;
 
 public class Select {
 	
 	public static void main(String[] args) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Example");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entregable2");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
-		//Persona j = em.find(Persona.class, 1);
-		//System.out.println(j);
-		@SuppressWarnings("unchecked")
-		List<Persona> personas = em.createQuery("SELECT p FROM Persona p").getResultList(); 
 
-		List<Turno> turnos = em.createQuery("SELECT t FROM Turno t JOIN t.jugadores p WHERE p.edad=23").getResultList(); 
-//		turnos.forEach(p -> System.out.println(p.getJugadores().getClass()));
-//		turnos.forEach(p -> System.out.println(p));
+		Estudiante j = em.find(Estudiante.class, 1);
+		System.out.println(j);
+		@SuppressWarnings("unchecked")
+		List<Estudiante> estudiantes = em.createQuery("SELECT p FROM Estudiante p").getResultList(); 
+
 
 		@SuppressWarnings("unchecked")
-		List<Object[]> res = em.createQuery("SELECT p.nombre, p.edad FROM Persona p").getResultList();
+		List<Object[]> res = em.createQuery("SELECT p.nombre, p.edad FROM Estudiante p").getResultList();
 		
 		res.forEach(d -> System.out.println(Arrays.toString(d)));
 		
