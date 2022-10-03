@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -18,7 +20,19 @@ import javax.persistence.OneToMany;
  * @version 1.0
  */
 @Entity
+@NamedQueries(value = {
+    @NamedQuery(name = "Estudiante.FIND_BY_LU", query = "SELECT e FROM Estudiante e WHERE e.libretaUniversitaria = :lu"),
+    @NamedQuery(name = "Estudiante.ORDER_BY_LAST_NAME", query = "SELECT e FROM Estudiante e ORDER BY e.apellido"),
+    @NamedQuery(name = "Estudiante.FIND_BY_GENDER", query = "SELECT e FROM Estudiante e WHERE e.genero = :genero"),
+    @NamedQuery(name = "Estudiante.FIND_BY_CARREER_CITY", query = "SELECT i.estudiante FROM Inscripcion i, "+
+                        "Estudiante e, Carrera c WHERE c.idCarrera = i.carrera.idCarrera AND e.libretaUniversitaria = i.estudiante.libretaUniversitaria AND c.idCarrera = :carrera AND i.estudiante.ciudad = :ciudad"),
+})
+
 public class Estudiante {
+    public static final String FIND_BY_LU = "Estudiante.findByLU";
+    public static final String FIND_BY_GENDER = "Estudiante.findByGender"; //Busca por genero
+    public static final String ORDER_BY_LASTNAME = "Estudiante.orderByLastName";
+    public static final String FIND_BY_CARREER_CITY = "Estudiante.findByCarrerAndCity";
     /**
      * Identificador del estudiante
      * Consideramos como identificador unico la libreta universitaria, ya que los dni a veces pueden coincidir
