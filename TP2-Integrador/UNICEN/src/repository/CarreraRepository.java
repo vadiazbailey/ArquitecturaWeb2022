@@ -3,6 +3,7 @@ package repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import modelos.Carrera;
 
@@ -38,15 +39,20 @@ public class CarreraRepository implements JPARepository<Carrera> {
     * Obtiene todas las carreras
     */
     public List<Carrera> getAll(){
-        return null;
+        TypedQuery<Carrera> tq = em.createNamedQuery("Carrera.findAll", Carrera.class);
+        return tq.getResultList();
     }
 
     /*
     * Obtiene las carreras que contengan inscriptos
     */
     public List<Carrera> getCarrerasConInscriptos(){
-        return null;
+        TypedQuery<Carrera> tq = em.createNamedQuery("Carrera.findConInscriptos", Carrera.class);
+        return tq.getResultList();
     }
 
-    }
+
+    //public List<DTOInscriptos> getReporteCarreras(){
+
+}
     
