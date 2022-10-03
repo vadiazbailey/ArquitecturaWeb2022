@@ -20,7 +20,9 @@ public class InscripcionRepository implements JPARepository<Inscripcion> {
      */
     public void save(Inscripcion i) {
         if (!em.contains(i)) {
+            em.getTransaction().begin();
             em.persist(i);
+            em.getTransaction().commit();
         } else {
             em.merge(i);
         }

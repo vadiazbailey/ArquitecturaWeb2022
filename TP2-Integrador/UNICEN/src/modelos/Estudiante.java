@@ -1,8 +1,6 @@
 package modelos;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,11 +19,10 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries(value = {
-    @NamedQuery(name = "Estudiante.FIND_BY_LU", query = "SELECT e FROM Estudiante e WHERE e.libretaUniversitaria = :lu"),
-    @NamedQuery(name = "Estudiante.ORDER_BY_LAST_NAME", query = "SELECT e FROM Estudiante e ORDER BY e.apellido"),
-    @NamedQuery(name = "Estudiante.FIND_BY_GENDER", query = "SELECT e FROM Estudiante e WHERE e.genero = :genero"),
-    @NamedQuery(name = "Estudiante.FIND_BY_CARREER_CITY", query = "SELECT i.estudiante FROM Inscripcion i, "+
-                        "Estudiante e, Carrera c WHERE c.idCarrera = i.carrera.idCarrera AND e.libretaUniversitaria = i.estudiante.libretaUniversitaria AND c.idCarrera = :carrera AND i.estudiante.ciudad = :ciudad"),
+    @NamedQuery(name = Estudiante.FIND_BY_LU, query = "SELECT e FROM Estudiante e WHERE e.libretaUniversitaria = :lu"),
+    @NamedQuery(name = Estudiante.ORDER_BY_LASTNAME, query = "SELECT e FROM Estudiante e ORDER BY e.apellido"),
+    @NamedQuery(name = Estudiante.FIND_BY_GENDER, query = "SELECT e FROM Estudiante e WHERE e.genero = :genero"),
+    @NamedQuery(name = Estudiante.FIND_BY_CARREER_CITY, query = "SELECT i.estudiante FROM Inscripcion i, Estudiante e, Carrera c WHERE c.idCarrera = i.carrera.idCarrera AND e.libretaUniversitaria = i.estudiante.libretaUniversitaria AND c.idCarrera = :carrera AND i.estudiante.ciudadResidencia = :ciudad"),
 })
 
 public class Estudiante {
@@ -38,7 +35,6 @@ public class Estudiante {
      * Consideramos como identificador unico la libreta universitaria, ya que los dni a veces pueden coincidir
      */
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
     private int libretaUniversitaria;
 
     /**
@@ -86,6 +82,9 @@ public class Estudiante {
      /**
      * Constructor por defecto
      */
+    public Estudiante() {
+    }
+
     public Estudiante(int libretaUniversitaria, 
                       String nombre, 
                       String apellido, 

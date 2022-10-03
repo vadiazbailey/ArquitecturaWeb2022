@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,21 +17,23 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Inscripcion implements Serializable{
+     /**
+     * Relacion con la clase Estudiante
+     */
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "libretaUniversitaria")
+    private Estudiante estudiante;
+    
     /**
      * Relacion con la clase Carrera
      */
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idCarrera")
     private Carrera carrera;
 
-    /**
-     * Relacion con la clase Estudiante
-     */
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "libretaUniversitaria")
-    private Estudiante estudiante;
+   
 
     /**
      * Fecha de ingreso a la carrera
@@ -47,6 +50,9 @@ public class Inscripcion implements Serializable{
     /**
      * Constructor por defecto
      */
+    public Inscripcion() {
+    }
+
     public Inscripcion(Carrera carrera, Estudiante estudiante, Timestamp fecha_ingreso, Timestamp fecha_egreso) {
         this.carrera = carrera;
         this.estudiante = estudiante;

@@ -18,17 +18,22 @@ import javax.persistence.OneToMany;
  */
 
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "Carrera.findAll", query = "SELECT c FROM Carrera c"),
-    @NamedQuery(name = "Carrera.findConInscriptos", query = "SELECT c FROM Carrera c WHERE c.alumnos.size > 0 ORDER BY c.alumnos.size DESC"),
-    @NamedQuery(name = "Carrera.findFechaIngreso", query = "SELECT YEAR(i.fecha_ingreso) from inscripcion i GROUP BY YEAR(i.fecha_ingreso) ORDER BY YEAR(i.fecha_ingreso) DESC"),
-    @NamedQuery(name = "Carrera.findFechaEgreso",query = "SELECT YEAR(i.fecha_egreso) from inscripcion i where fecha_egreso IS NOT NULL GROUP BY YEAR(i.fecha_egreso) ORDER BY YEAR(i.fecha_egreso) DESC")
+@NamedQueries(value = {
+    @NamedQuery(name = Carrera.FIND_ALL, query = "SELECT c FROM Carrera c"),
+    @NamedQuery(name = Carrera.FIND_CON_INSCRIPTOS, query = "SELECT DISTINCT i.carrera FROM Inscripcion i, Estudiante e, Carrera c WHERE c.idCarrera = i.carrera.idCarrera AND e.libretaUniversitaria = i.estudiante.libretaUniversitaria GROUP BY i.carrera.idCarrera ORDER BY COUNT(i.estudiante) DESC"),
+    @NamedQuery(name = Carrera.FIND_FECHA_INGRESO, query = "SELECT YEAR(i.fecha_ingreso) FROM Inscripcion i GROUP BY YEAR(i.fecha_ingreso) ORDER BY YEAR(i.fecha_ingreso) DESC"),
+    @NamedQuery(name = Carrera.FIND_FECHA_EGRESO, query = "SELECT YEAR(i.fecha_egreso) FROM Inscripcion i where fecha_egreso IS NOT NULL GROUP BY YEAR(i.fecha_egreso) ORDER BY YEAR(i.fecha_egreso) DESC")
 })
 public class Carrera {
+    public static final String FIND_ALL = "Carrera.findAll";
+    public static final String FIND_CON_INSCRIPTOS = "Carrera.findConInscriptos";
+    public static final String FIND_FECHA_INGRESO = "Carrera.findFechaIngreso";
+    public static final String FIND_FECHA_EGRESO = "Carrera.findFechaEgreso";
+
     /**
      * Identificador de la carrera
      */
-    @Id 
+    @Id
     private int idCarrera;
 
     /**
@@ -46,6 +51,9 @@ public class Carrera {
     /**
      * Constructor por defecto
      */
+    public Carrera() {
+    }
+
     public Carrera(int idCarrera, String nombre) {
         this.idCarrera = idCarrera;
         this.nombre = nombre;

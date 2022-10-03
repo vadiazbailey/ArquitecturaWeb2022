@@ -22,7 +22,9 @@ public class EstudianteRepository implements JPARepository<Estudiante> {
      */
     public void save(Estudiante e) {
         if (!em.contains(e)) {
+            em.getTransaction().begin();
             em.persist(e);
+            em.getTransaction().commit();
         } else {
             em.merge(e);
         }
@@ -58,9 +60,9 @@ public class EstudianteRepository implements JPARepository<Estudiante> {
         return tq.getResultList();
     }
 
-    public List<Estudiante> getByCarrerAndCity(long idCarrera, String ciudad) {
+    public List<Estudiante> getByCarrerAndCity(int idCarrera, String ciudad) {
         TypedQuery<Estudiante> tq = this.em.createNamedQuery(Estudiante.FIND_BY_CARREER_CITY, Estudiante.class)
-                .setParameter("idCarrera", idCarrera).setParameter("ciudad", ciudad);
+                .setParameter("carrera", idCarrera).setParameter("ciudad", ciudad);
         return tq.getResultList();
     }
 
