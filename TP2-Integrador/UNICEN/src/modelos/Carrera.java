@@ -3,6 +3,7 @@ package modelos;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,15 +21,21 @@ import javax.persistence.OneToMany;
 @Entity
 @NamedQueries(value = {
     @NamedQuery(name = Carrera.FIND_ALL, query = "SELECT c FROM Carrera c"),
+    @NamedQuery(name = Carrera.FIND_ALL_BY_NAME, query = "SELECT c FROM Carrera c ORDER BY c.nombre"),
     @NamedQuery(name = Carrera.FIND_CON_INSCRIPTOS, query = "SELECT DISTINCT i.carrera FROM Inscripcion i, Estudiante e, Carrera c WHERE c.idCarrera = i.carrera.idCarrera AND e.libretaUniversitaria = i.estudiante.libretaUniversitaria GROUP BY i.carrera.idCarrera ORDER BY COUNT(i.estudiante) DESC"),
-    @NamedQuery(name = Carrera.FIND_FECHA_INGRESO, query = "SELECT YEAR(i.fecha_ingreso) FROM Inscripcion i GROUP BY YEAR(i.fecha_ingreso) ORDER BY YEAR(i.fecha_ingreso) DESC"),
-    @NamedQuery(name = Carrera.FIND_FECHA_EGRESO, query = "SELECT YEAR(i.fecha_egreso) FROM Inscripcion i where fecha_egreso IS NOT NULL GROUP BY YEAR(i.fecha_egreso) ORDER BY YEAR(i.fecha_egreso) DESC")
+    @NamedQuery(name = Carrera.FIND_FECHA_INGRESO, query = "SELECT YEAR(i.fecha_ingreso) FROM Inscripcion i GROUP BY YEAR(i.fecha_ingreso) ORDER BY YEAR(i.fecha_ingreso) ASC"),
+    @NamedQuery(name = Carrera.FIND_FECHA_EGRESO, query = "SELECT YEAR(i.fecha_egreso) FROM Inscripcion i where fecha_egreso IS NOT NULL GROUP BY YEAR(i.fecha_egreso) ORDER BY YEAR(i.fecha_egreso) ASC"),
+    @NamedQuery(name = Carrera.FIND_INGRESANTES_DE_CARRERA_POR_FECHA, query = "SELECT i.estudiante FROM Inscripcion i,  Estudiante e, Carrera c WHERE c.idCarrera = i.carrera.idCarrera AND e.libretaUniversitaria = i.estudiante.libretaUniversitaria AND c.idCarrera = :carreraId AND YEAR (i.fecha_ingreso) = :fecha"),
+	@NamedQuery(name = Carrera.FIND_EGRESADOS_DE_CARRERA_POR_FECHA, query = "SELECT i.estudiante FROM Inscripcion i,  Estudiante e, Carrera c WHERE c.idCarrera = i.carrera.idCarrera AND e.libretaUniversitaria = i.estudiante.libretaUniversitaria AND c.idCarrera = :carreraId AND YEAR (i.fecha_egreso) = :fecha")
 })
 public class Carrera {
     public static final String FIND_ALL = "Carrera.findAll";
+    public static final String FIND_ALL_BY_NAME = "Carrera.findAllByName";
     public static final String FIND_CON_INSCRIPTOS = "Carrera.findConInscriptos";
     public static final String FIND_FECHA_INGRESO = "Carrera.findFechaIngreso";
     public static final String FIND_FECHA_EGRESO = "Carrera.findFechaEgreso";
+    public static final String FIND_INGRESANTES_DE_CARRERA_POR_FECHA = "Carrera.buscarInscriptosDeCarreraPorFecha";
+	public static final String FIND_EGRESADOS_DE_CARRERA_POR_FECHA = "Carrera.buscarEgresadosDeCarreraPorFecha";
 
     /**
      * Identificador de la carrera
@@ -45,7 +52,7 @@ public class Carrera {
     /**
      * Listado de alumnos que cursan la carrera
      */
-    @OneToMany(mappedBy = "carrera", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Inscripcion> alumnos;
 
     /**
@@ -121,7 +128,7 @@ public class Carrera {
      */
     @Override
     public String toString() {
-        return "Carrera [idCarrera=" + idCarrera + ", nombre=" + nombre + ", alumnos=" + alumnos + "]";
+        return "Carrera [idCarrera=" + idCarrera + ", nombre=" + nombre + "]";
     }
  
 }

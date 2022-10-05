@@ -1,6 +1,8 @@
 package modelos;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -76,7 +78,7 @@ public class Estudiante {
     /**
      * Listado de inscripciones del estudiante
      */
-    @OneToMany (mappedBy = "estudiante", fetch = FetchType.LAZY)
+    @OneToMany (mappedBy = "estudiante", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Inscripcion> inscripciones;
 
      /**
@@ -257,7 +259,7 @@ public class Estudiante {
     public String toString() {
         return "Estudiante [libretaUniversitaria=" + libretaUniversitaria + ", nombre=" + nombre + ", apellido="
                 + apellido + ", edad=" + edad + ", genero=" + genero + ", dni=" + dni + ", ciudadResidencia="
-                + ciudadResidencia + ", inscripciones=" + inscripciones + "]";
+                + ciudadResidencia + "]";
     }
 
 }

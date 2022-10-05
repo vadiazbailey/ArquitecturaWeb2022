@@ -22,7 +22,7 @@ public class Inscripcion implements Serializable{
      */
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "libretaUniversitaria")
+    @JoinColumn
     private Estudiante estudiante;
     
     /**
@@ -30,7 +30,7 @@ public class Inscripcion implements Serializable{
      */
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idCarrera")
+    @JoinColumn
     private Carrera carrera;
 
    

@@ -10,13 +10,16 @@
  */
 
 import java.sql.Timestamp;
-import java.util.Date;  
+import java.util.Date;
+import java.util.Iterator;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import modelos.Carrera;
 import modelos.Estudiante;
 import modelos.Inscripcion;
+import modelos.RegistroInscripcion;
 import repository.CarreraRepository;
 import repository.EstudianteRepository;
 import repository.InscripcionRepository;
@@ -66,7 +69,7 @@ public class main {
 		Inscripcion i1 = new Inscripcion(tudai, martin, new Timestamp(date3.getTime()), null);
 		Inscripcion i2 = new Inscripcion(sistemas, beltran, new Timestamp(date2.getTime()), null);
 		Inscripcion i3 = new Inscripcion(contador, ayelen, new Timestamp(date1.getTime()), new Timestamp(date3.getTime()));
-		Inscripcion i4 = new Inscripcion(tudai, ezequiel, new Timestamp(date3.getTime()), null);
+		Inscripcion i4 = new Inscripcion(tudai, ezequiel, new Timestamp(date1.getTime()), null);
 		Inscripcion i5 = new Inscripcion(tudai, ayelen, new Timestamp(date3.getTime()), null);
 		inscriptionRepo.save(i1);
 		inscriptionRepo.save(i2);
@@ -79,35 +82,44 @@ public class main {
 		* Se ordena por apellido A-Z
 		*/
 		em.getTransaction().begin();
-		System.out.println("\n Listado completo de estudiantes ordenado por apellido:");
+		System.out.println("\n C_Listado completo de estudiantes ordenado por apellido:");
 		System.out.println(studentRepo.getAll());
 		em.getTransaction().commit();
 		System.out.println("------------------------------------------------------------------------------------");
 
 		// D) Recuperar un estudiante, en base a su número de libreta universitaria
 		em.getTransaction().begin();
-		System.out.println("\n Estudiante cuyo numero de libreta es 2:");
+		System.out.println("\n D_Estudiante cuyo numero de libreta es 2:");
 		System.out.println(studentRepo.getById(2));
 		em.getTransaction().commit();
 		System.out.println("------------------------------------------------------------------------------------");
 		// E) Recuperar todos los estudiantes, en base a su género.
 		em.getTransaction().begin();
-		System.out.println("\n Estudiantes cuyo genero es masculino:");
+		System.out.println("\n E_Estudiantes cuyo genero es masculino:");
 		System.out.println(studentRepo.getByGender("m"));
 		em.getTransaction().commit();
 		System.out.println("------------------------------------------------------------------------------------");
 
 		// F) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
 		em.getTransaction().begin();
-		System.out.println("\n Carreras con estudiantes inscriptos ordenadas por cantidad de inscriptos:");
+		System.out.println("\n F_Carreras con estudiantes inscriptos ordenadas por cantidad de inscriptos:");
 		System.out.println(carrerRepo.getCarrerasConInscriptos());
 		em.getTransaction().commit();
 		System.out.println("------------------------------------------------------------------------------------");
 
 		// G) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
 		em.getTransaction().begin();
-		System.out.println("\n Estudiantes de la carrera de sistemas que viven en Rauch:");
+		System.out.println("\n G_Estudiantes de la carrera de sistemas que viven en Rauch:");
 		System.out.println(studentRepo.getByCarrerAndCity(3, "Rauch"));
 		em.getTransaction().commit();
+		System.out.println("------------------------------------------------------------------------------------");
+
+		Iterator<RegistroInscripcion> carreras = carrerRepo.getReporteCarreras().iterator();
+		System.out.println("Carreras ordenadas alfabeticamente con ingresantes y egresados, ordenadas de forma cronologica");
+		while(carreras.hasNext())
+			System.out.println(carreras.next());
+		
+		emf.close();
+		em.close();
     }
 }
