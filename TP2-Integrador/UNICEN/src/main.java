@@ -34,17 +34,19 @@ public class main {
 		EstudianteRepository studentRepo = new EstudianteRepository(em);
 		CarreraRepository carrerRepo = new CarreraRepository(em);
 		InscripcionRepository inscriptionRepo = new InscripcionRepository(em);
-
-		// Se crean y cargan los estudiantes a la base de datos.
+		
+		// 2A) Dar de alta un estudiante
+		System.out.println("\n 2.A) Dar de alta un estudiante");
 		Estudiante beltran = new Estudiante(1, "Beltran", "Peña", 22, "m", 41969641, "Rauch");
 		Estudiante ayelen = new Estudiante(2, "Ayelen", "Diaz Bailey", 29, "f", 37926567, "Necochea");
 		Estudiante ezequiel = new Estudiante(3, "Ezequiel", "Fernandez", 22, "m", 45233301, "Tandil");
 		Estudiante martin = new Estudiante(4, "Martin", "Lopardo", 30, "m", 37031217, "Azul");
+		Estudiante peque = new Estudiante(5, "Ailin", "Kravos", 23, "f", 41394188, "Tandil");
+		studentRepo.save(peque);
 		studentRepo.save(beltran);
 		studentRepo.save(ayelen);
 		studentRepo.save(ezequiel);
 		studentRepo.save(martin);
-		
 
 		// Se crean y cargan las carreras a la base de datos.
 		Carrera tudai = new Carrera(1, "TUDAI");
@@ -54,15 +56,10 @@ public class main {
 		carrerRepo.save(contador);
 		carrerRepo.save(sistemas);
 
-		/* 2) Implementar consultas para:
-		*  A) Dar de alta un estudiante
-		*/
-		Estudiante peque = new Estudiante(5, "Ailin", "Kravos", 23, "f", 41394188, "Tandil");
-		studentRepo.save(peque);
+		System.out.println("------------------------------------------------------------------------------------");
 
-		/* B) 
-		 * Matricular un estudiante en una carrera
-		*/
+		// 2B) Matricular un estudiante en una carrera
+		System.out.println("\n 2.B) Matricular un estudiante en una carrera");
 		Date date1 = new Date("2012/02/06");
 		Date date2 = new Date("2018/08/09");
 		Date date3 = new Date("2020/08/09");
@@ -77,49 +74,57 @@ public class main {
 		inscriptionRepo.save(i4);
 		inscriptionRepo.save(i5);
 
-		/* C) 
-		* Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
-		* Se ordena por apellido A-Z
-		*/
+		System.out.println("------------------------------------------------------------------------------------");
+
+		// 2C) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
+		// Se ordena por apellido A-Z
 		em.getTransaction().begin();
-		System.out.println("\n C_Listado completo de estudiantes ordenado por apellido:");
+		System.out.println("\n 2.C) Listado completo de estudiantes ordenado por apellido:");
 		System.out.println(studentRepo.getAll());
 		em.getTransaction().commit();
+
 		System.out.println("------------------------------------------------------------------------------------");
 
-		// D) Recuperar un estudiante, en base a su número de libreta universitaria
+		// 2D) Recuperar un estudiante, en base a su número de libreta universitaria
 		em.getTransaction().begin();
-		System.out.println("\n D_Estudiante cuyo numero de libreta es 2:");
+		System.out.println("\n 2.D) Estudiante cuyo numero de libreta es 2:");
 		System.out.println(studentRepo.getById(2));
 		em.getTransaction().commit();
+
 		System.out.println("------------------------------------------------------------------------------------");
-		// E) Recuperar todos los estudiantes, en base a su género.
+
+		// 2E) Recuperar todos los estudiantes, en base a su género.
 		em.getTransaction().begin();
-		System.out.println("\n E_Estudiantes cuyo genero es masculino:");
+		System.out.println("\n 2.E) Estudiantes cuyo genero es masculino:");
 		System.out.println(studentRepo.getByGender("m"));
 		em.getTransaction().commit();
+
 		System.out.println("------------------------------------------------------------------------------------");
 
-		// F) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
+		// 2F) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
 		em.getTransaction().begin();
-		System.out.println("\n F_Carreras con estudiantes inscriptos ordenadas por cantidad de inscriptos:");
+		System.out.println("\n 2.F) Carreras con estudiantes inscriptos ordenadas por cantidad de inscriptos:");
 		System.out.println(carrerRepo.getCarrerasConInscriptos());
 		em.getTransaction().commit();
+
 		System.out.println("------------------------------------------------------------------------------------");
 
-		// G) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
+		// 2G) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
 		em.getTransaction().begin();
-		System.out.println("\n G_Estudiantes de la carrera de sistemas que viven en Rauch:");
+		System.out.println("\n 2.G) Estudiantes de la carrera de sistemas que viven en Rauch:");
 		System.out.println(studentRepo.getByCarrerAndCity(3, "Rauch"));
 		em.getTransaction().commit();
+
 		System.out.println("------------------------------------------------------------------------------------");
 
+		// 3. Generar un reporte de las carreras, que para cada carrera incluya información de los inscriptos y egresados por año.
+		// Se deben ordenar las carreras alfabéticamente, y presentar los años de manera cronológica.
 		Iterator<RegistroInscripcion> carreras = carrerRepo.getReporteCarreras().iterator();
-		System.out.println("Carreras ordenadas alfabeticamente con ingresantes y egresados, ordenadas de forma cronologica");
-		while(carreras.hasNext())
+		System.out.println("3. Carreras ordenadas por nombre ASC, con info de ingresantes y egresados ordenadas de forma cronológica");
+		while(carreras.hasNext()){
 			System.out.println(carreras.next());
-		
-		emf.close();
+		}
 		em.close();
+		emf.close();
     }
 }

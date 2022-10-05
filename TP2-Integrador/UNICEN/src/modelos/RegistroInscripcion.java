@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Set;
 
 public class RegistroInscripcion {
-    
-    private Carrera carrera;
+
+	private Carrera carrera;
 	private LinkedHashMap<Integer, List<Estudiante>> ingresantes;
 	private LinkedHashMap<Integer, List<Estudiante>> egresados;
-	
+
 	public RegistroInscripcion(Carrera carrera, LinkedHashMap<Integer, List<Estudiante>> ingresantes,
 			LinkedHashMap<Integer, List<Estudiante>> egresados) {
 		super();
@@ -18,7 +18,6 @@ public class RegistroInscripcion {
 		this.egresados = egresados;
 	}
 
-
 	public Carrera getCarrera() {
 		return carrera;
 	}
@@ -26,19 +25,19 @@ public class RegistroInscripcion {
 	public List<Estudiante> getAniosIngreso(int anio) {
 		return this.ingresantes.get(anio);
 	}
-	
+
 	public List<Estudiante> getAniosEgreso(int anio) {
 		return this.egresados.get(anio);
 	}
-	
+
 	public Set<Integer> getAniosEgreso() {
 		return this.egresados.keySet();
 	}
-	
+
 	public Set<Integer> getAniosIngreso() {
 		return this.egresados.keySet();
 	}
-	
+
 	public void setCarrera(Carrera carrera) {
 		this.carrera = carrera;
 	}
@@ -47,16 +46,15 @@ public class RegistroInscripcion {
 	public String toString() {
 		String data = "";
 		for (Integer key : this.ingresantes.keySet()) {
-			data += "Año = " + key + " \n";
-			data += "ingresantes = " + this.ingresantes.get(key).toString() + " \n";
+			data += "Año: " + key + " \n";
+			data += "Ingresantes: " + this.ingresantes.get(key).toString() + " \n";
 		}
 		for (Integer key : this.egresados.keySet()) {
-			data += "Año = " + key + " \n";
-			data += "Egresados = " + this.egresados.get(key).toString() + " \n";
+			data += "Año: " + key + " \n";
+			data += "Egresados: " + this.egresados.get(key).toString() + " \n";
 		}
 
-		return "Carrera = " + carrera.getNombre() + "\r\n" + data;
+		return "Carrera: " + carrera.getNombre() + " \n" + data;
 	}
-
 
 }
