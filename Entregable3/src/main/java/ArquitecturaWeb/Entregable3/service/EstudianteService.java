@@ -17,8 +17,16 @@ public class EstudianteService {
          return estudianteRepository.save(e);
     }
 
-    public Estudiante findByDni(Long id){
+   /*  public Estudiante findByDni(int id){
         return estudianteRepository.findByDni(id);
+    } */
+
+   public Estudiante findByLU(int libreta_universitaria){
+        return estudianteRepository.findByLU(libreta_universitaria);
+    }
+
+    public List<Estudiante> findByGenero(String genero){
+        return estudianteRepository.findByGenero(genero);
     }
 
     public List<Estudiante> findAll(){
