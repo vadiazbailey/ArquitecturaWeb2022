@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ArquitecturaWeb.Entregable3.models.Carrera;
 import ArquitecturaWeb.Entregable3.models.Estudiante;
 import ArquitecturaWeb.Entregable3.repository.EstudianteRepository;
 
@@ -17,10 +18,6 @@ public class EstudianteService {
          return estudianteRepository.save(e);
     }
 
-   /*  public Estudiante findByDni(int id){
-        return estudianteRepository.findByDni(id);
-    } */
-
    public Estudiante findByLU(int libreta_universitaria){
         return estudianteRepository.findByLU(libreta_universitaria);
     }
@@ -31,5 +28,13 @@ public class EstudianteService {
 
     public List<Estudiante> findAll(){
         return estudianteRepository.findAll();
+    }
+
+    public List<Estudiante> findAllOrdenadoApellido(){
+        return estudianteRepository.findAllOrdenadoApellido();
+    }
+
+    public List<Estudiante> findByCarreraYCiudad(int carrera, String ciudad){
+        return estudianteRepository.findByCarreraYCiudad(carrera, ciudad);
     }
 }

@@ -1,5 +1,6 @@
 package ArquitecturaWeb.Entregable3.controller;
 
+import ArquitecturaWeb.Entregable3.models.Carrera;
 import ArquitecturaWeb.Entregable3.models.Estudiante;
 import ArquitecturaWeb.Entregable3.service.EstudianteService;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -39,13 +41,25 @@ public class EstudianteController {
         return estudianteService.findByGenero(genero);
     }
 
+    @RequestMapping(value = "estudiantes/apellido", method = RequestMethod.GET, produces = "application/json")
+    public List<Estudiante> getEstudiantesbyApellido(){
+        return estudianteService.findAllOrdenadoApellido();
+    }
+
     @RequestMapping("/agregar")
     public Estudiante addStudent(@RequestBody Estudiante e){
         return estudianteService.save(e);
     }
 
-    /* @GetMapping("/estudiantes/{genero}")
-    public Estudiante getPersonaByDni(@PathVariable String genero) {
-        return estudianteService.findByGenero(genero);
+    /* @RequestMapping(value = "estudiantes", params={"carrera","nombre"}, method = RequestMethod.GET, produces = "application/json")
+    public List<Carrera> getEstudiantesbyCarrera(@RequestParam int carrera, @RequestParam String nombre){
+        return estudianteService.findByCarrera(carrera, nombre);
     } */
+
+    @RequestMapping(value = "estudiantes", params={"carrera","ciudad"}, method = RequestMethod.GET, produces = "application/json")
+    public List<Estudiante> getEstudiantesbyCarreraYCiudad(@RequestParam int carrera, @RequestParam String ciudad){
+        return estudianteService.findByCarreraYCiudad(carrera, ciudad);
+    }
+
+   
 }
