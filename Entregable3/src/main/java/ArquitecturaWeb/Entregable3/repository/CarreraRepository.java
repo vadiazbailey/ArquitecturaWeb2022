@@ -14,6 +14,7 @@ public interface CarreraRepository extends JpaRepository<Carrera, Long> {
     @Query("SELECT DISTINCT c FROM Inscripcion i, Estudiante e, Carrera c "+
     "WHERE c.idCarrera = i.idC " +
     "AND e.libretaUniversitaria = i.libretaUniversitaria "+
-    "ORDER BY i.idC DESC" )
+    "GROUP BY i.idC "+
+    "ORDER BY COUNT(i.libretaUniversitaria) DESC" )
     List<Carrera> findAllCarrerasOrdenadas();
 }
