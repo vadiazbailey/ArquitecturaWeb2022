@@ -73,7 +73,7 @@ public class InscripcionController {
     }
 
     @RequestMapping(value="/getReporte",method = RequestMethod.GET, produces = "application/json")
-    public List<Reporte> getReporte() {
+    public List<String> getReporte() {
         return inscripcionService.getReporte();
     }
 
