@@ -18,5 +18,5 @@ public interface InscripcionRepository extends JpaRepository<Inscripcion, Inscri
                     "ON i.id_carrera = c.id_carrera " +
                     "WHERE i.fecha_inscripcion IS NOT NULL " +
                     "ORDER BY c.nombre ASC, fecha_inscripcion ASC", nativeQuery = true)
-    List<Reporte> getReporte();
+    List<String> getReporte();
 }
