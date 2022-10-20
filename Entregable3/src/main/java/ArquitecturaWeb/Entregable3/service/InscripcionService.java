@@ -16,7 +16,7 @@ public class InscripcionService {
         return inscripcionRepository.save(i);
     }
 
-    public List<Reporte> getReporte(){
+    public List<String> getReporte(){
         return inscripcionRepository.getReporte();
     }
 }
