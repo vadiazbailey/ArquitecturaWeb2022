@@ -1,9 +1,6 @@
 package ArquitecturaWeb.Entregable3.models;
-
-
 import javax.persistence.*;
-import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 /**
  * Posee los datos de una inscripcion, fecha de inscripcion, carrera y estudiante.
@@ -16,27 +13,33 @@ public class Inscripcion {
     @EmbeddedId
     private InscripcionId id;
 
-    @ManyToOne
-    @MapsId("libretaUniversitaria")
-    @JoinColumn(name = "libreta_universitaria", nullable = false)
-    private Estudiante libretaUniversitaria;
-
-    @ManyToOne
-    @MapsId("idCarrera")
-    @JoinColumn(name = "id_carrera", nullable = false)
-    private Carrera idC;
-
     /**
      * Fecha de ingreso a la carrera
      */
     @Column(name = "fecha_inscripcion", nullable = false)
-    private Timestamp fecha_ingreso;
+    private Date fecha_inscripcion;
 
     /**
      * Fecha de egreso de la carrera
      */
     @Column(name = "fecha_egreso", nullable = true)
-    private Timestamp fecha_egreso;
+    private Date fecha_egreso;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @MapsId("libretaUniversitaria")
+    @JoinColumn(name = "libreta_universitaria", nullable = false)
+    private Estudiante libretaUniversitaria;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @MapsId("idCarrera")
+    @JoinColumn(name = "id_carrera", nullable = false)
+    private Carrera idCarrera;
+
+
+    public Inscripcion() {
+    }
+
+    /* ------- GETTERS & SETTERS --------- */
 
     public InscripcionId getId() {
         return id;
@@ -55,28 +58,30 @@ public class Inscripcion {
     }
 
     public Carrera getIdCarrera() {
-        return idC;
+        return idCarrera;
     }
 
-    public void setIdCarrera(Carrera idC) {
-        this.idC= idC;
+    public void setIdCarrera(Carrera idCarrera) {
+        this.idCarrera = idCarrera;
     }
 
-    public Timestamp getFecha_ingreso() {
-        return fecha_ingreso;
+    public Date getFecha_inscripcion() {
+        return fecha_inscripcion;
     }
 
-    public void setFecha_ingreso(Timestamp fecha_ingreso) {
-        this.fecha_ingreso = fecha_ingreso;
+    public void setFecha_inscripcion(Date fecha_inscripcion) {
+        this.fecha_inscripcion = fecha_inscripcion;
     }
 
-    public Timestamp getFecha_egreso() {
+    public Date getFecha_egreso() {
         return fecha_egreso;
     }
 
-    public void setFecha_egreso(Timestamp fecha_egreso) {
+    public void setFecha_egreso(Date fecha_egreso) {
         this.fecha_egreso = fecha_egreso;
     }
+
+
 }
 
 

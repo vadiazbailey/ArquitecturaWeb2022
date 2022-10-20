@@ -1,10 +1,5 @@
 package ArquitecturaWeb.Entregable3.models;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,13 +11,12 @@ public class Estudiante {
      */
     @Id
     @Column(name = "libreta_universitaria", nullable = false)
-    private int libretaUniversitaria;
+    private Long libretaUniversitaria;
 
     /**
      * Listado de inscripciones del estudiante
      */
-    @JsonIgnore
-    @OneToMany(mappedBy = "libretaUniversitaria")
+    @OneToMany(mappedBy = "libretaUniversitaria",cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Set<Inscripcion> inscripcionId;
 
     /**
@@ -58,7 +52,7 @@ public class Estudiante {
     /**
      * Listado de inscripciones del estudiante
      */
-    @Column (name = "direccion", nullable = false)
+    @Column (name = "ciudadResidencia", nullable = false)
     private String ciudadResidencia;
 
 
@@ -68,7 +62,7 @@ public class Estudiante {
     public Estudiante() {
     }
 
-    public Estudiante(int libretaUniversitaria,
+    public Estudiante(Long libretaUniversitaria,
                       String nombre,
                       String apellido,
                       int edad,
@@ -88,7 +82,7 @@ public class Estudiante {
      * Obtiene el identificador del estudiante
      * @return identificador del estudiante
      */
-    public int getLibretaUniversitaria() {
+    public Long getLibretaUniversitaria() {
         return libretaUniversitaria;
     }
 
@@ -96,7 +90,7 @@ public class Estudiante {
      * Establece el identificador del estudiante
      * @param libretaUniversitaria del estudiante
      */
-    public void setLibretaUniversitaria(int libretaUniversitaria) {
+    public void setLibretaUniversitaria(Long libretaUniversitaria) {
         this.libretaUniversitaria = libretaUniversitaria;
     }
 

@@ -1,10 +1,5 @@
 package ArquitecturaWeb.Entregable3.models;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,7 +10,7 @@ public class Carrera {
      */
     @Id
     @Column(name = "id_carrera", nullable = false)
-    private int idCarrera;
+    private Long idCarrera;
 
 
     /**
@@ -27,8 +22,7 @@ public class Carrera {
     /**
      * Listado de alumnos que cursan la carrera
      */
-    @JsonIgnore
-    @OneToMany(mappedBy = "idC")
+    @OneToMany(mappedBy = "idCarrera", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Set<Inscripcion> inscripcionId;
 
     /**
@@ -37,24 +31,12 @@ public class Carrera {
     public Carrera() {
     }
 
-    public Carrera(int idCarrera, String nombre) {
-        this.idCarrera = idCarrera;
-        this.nombre = nombre;
-    }
 
-    /**
-     * Obtiene el identificador de la carrera
-     * @return the idCarrera
-     */
-    public int getIdCarrera() {
+    public Long getIdCarrera() {
         return idCarrera;
     }
 
-    /**
-     * Establece el identificador de la carrera
-     * @param idCarrera the idCarrera to set
-     */
-    public void setIdCarrera(int idCarrera) {
+    public void setIdCarrera(Long idCarrera) {
         this.idCarrera = idCarrera;
     }
 

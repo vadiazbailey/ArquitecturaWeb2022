@@ -1,32 +1,38 @@
 package ArquitecturaWeb.Entregable3.models;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Embeddable
 public class InscripcionId implements Serializable {
 
-    @Column(name ="id_carrera")
-    private int idCarrera;
+    @Column(name = "id_carrera")
+    private Long idCarrera;
 
     @Column(name = "libreta_universitaria")
-    private int libretaUniversitaria;
+    private Long libretaUniversitaria;
 
-    public int getIdCarrera() {
+    public Long getIdCarrera() {
         return idCarrera;
     }
 
-    public void setIdCarrera(int idCarrera) {
+    public void setIdCarrera(Long idCarrera) {
         this.idCarrera = idCarrera;
     }
 
-    public int getLibretaUniversitaria() {
+    public Long getLibretaUniversitaria() {
         return libretaUniversitaria;
     }
 
-    public void setLibretaUniversitaria(int libretaUniversitaria) {
+    public void setLibretaUniversitaria(Long libretaUniversitaria) {
+        this.libretaUniversitaria = libretaUniversitaria;
+    }
+
+    public InscripcionId() {
+    }
+
+    public InscripcionId(Long idCarrera, Long libretaUniversitaria) {
+        this.idCarrera = idCarrera;
         this.libretaUniversitaria = libretaUniversitaria;
     }
 
