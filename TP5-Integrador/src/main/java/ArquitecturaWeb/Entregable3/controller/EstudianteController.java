@@ -19,8 +19,8 @@ public class EstudianteController {
     @Autowired
     EstudianteService estudianteService;
 
-    @ApiOperation(value = "Esta consulta POST, permite agregar un estudiante a la DB. http://localhost:8080/estudiantes/agregar", 
-    notes="Se debe enviar un JSON de Estudiante en el BODY")
+    @ApiOperation(value = "Esta consulta POST, permite agregar un estudiante a la DB", 
+    notes="Se debe enviar un JSON de Estudiante en el BODY. http://localhost:8080/estudiantes/agregar")
     
 
     @PostMapping(value="/agregar", produces="application/json", consumes="application/json")
